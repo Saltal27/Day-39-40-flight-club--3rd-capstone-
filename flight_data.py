@@ -11,8 +11,11 @@ def compare_prices(sheety_cities_list, flights_dict):
 
         if cheapest_price_found <= desired_price:
             best_deals_dict[city_name] = {
+                "destination": city_name,
                 "price": cheapest_price_found,
                 "flight_num": flights_dict[city_name]["flight_num"],
+                "from": flights_dict[city_name]["flight_details"]["local_departure"],
+                "to": flights_dict[city_name]["flight_details"]["local_arrival"],
                 # "flight_details": flights_dict[city_name]["flight_details"],
             }
     return best_deals_dict

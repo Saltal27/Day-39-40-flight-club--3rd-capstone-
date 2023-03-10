@@ -25,6 +25,6 @@ def send_cheap_flights_mail(best_deals_dict):
 
 class NotificationManager:
     # This class is responsible for sending notifications with the deal flight details.
-    def __init__(self, there_is_good_deals: bool, best_deals_dict:dict):
+    def __init__(self, there_is_good_deals: bool, best_deals_dict: dict):
         if there_is_good_deals:
             send_cheap_flights_mail(best_deals_dict)

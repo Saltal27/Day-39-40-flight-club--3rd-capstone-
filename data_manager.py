@@ -13,7 +13,7 @@ tequila_locations_parmas = {
 
 
 def fill_iata_codes():
-    """ This function checks your Google sheet 'FLIGHT DEALS', and fills the empty 'IATA Code' cells with data
+    """ This function checks your Google Sheet 'FLIGHT DEALS', and fills the empty 'IATA Code' cells with data
     retrieved from the tequila api"""
 
     get_sheety_response = requests.get(url=GET_SHEETY_URL)
@@ -42,6 +42,5 @@ class DataManager:
     # This class is responsible for talking to the Google Sheet.
     def __init__(self):
         fill_iata_codes()
-
-
-data_manager = DataManager()
+        get_sheety_response = requests.get(url=GET_SHEETY_URL)
+        self.sheety_data_list = get_sheety_response.json()["prices"]

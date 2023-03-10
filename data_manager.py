@@ -13,18 +13,26 @@ tequila_locations_parmas = {
 
 
 def fill_iata_codes():
-    """ This function checks your Google Sheet 'FLIGHT DEALS', and fills the empty 'IATA Code' cells with data
+    """This function checks your Google Sheet 'FLIGHT DEALS', and fills the empty 'IATA Code' cells with data
     retrieved from the tequila api"""
 
+    # getting sheety data
     get_sheety_response = requests.get(url=GET_SHEETY_URL)
     sheety_data_list = get_sheety_response.json()["prices"]
+
     for city_num in range(len(sheety_data_list)):
+        # acquiring each city name
         city_name = sheety_data_list[city_num]["city"]
+        # replacing the 'term' in tequila parmas with the city name
         tequila_locations_parmas["term"] = city_name
 
+        # getting the tequila data correspondent to the city name
         tequila_response = requests.get(url=TEQUILA_LOCATIONS_API_ENDPOINT, params=tequila_locations_parmas,
                                         headers=TEQUILA_LOCATIONS_HEADERS)
+        # acquiring the city code
         city_code = tequila_response.json()["locations"][0]["code"]
+
+        # inserting the city code in its cell if it's empty
         if sheety_data_list[city_num]["iataCode"] == "":
             row_num = city_num + 2
             edit_sheety_url = \
@@ -35,12 +43,13 @@ def fill_iata_codes():
                 }
             }
             post_sheety_response = requests.put(url=edit_sheety_url, json=edit_sheety_body)
-            print(post_sheety_response.text)
 
 
 class DataManager:
-    # This class is responsible for talking to the Google Sheet.
+    """This class checks your Google Sheet 'FLIGHT DEALS', and fills the empty 'IATA Code' cells with data
+    retrieved from the tequila api"""
     def __init__(self):
         fill_iata_codes()
         get_sheety_response = requests.get(url=GET_SHEETY_URL)
-        self.sheety_data_list = get_sheety_response.json()["prices"]
+        self.sheety_data = get_sheety_response.json()
+        self.sheety_cities_list = self.sheety_data["prices"]

@@ -11,7 +11,7 @@ now = datetime.now()
 six_months = date.today() + relativedelta(months=+6)
 
 tequila_search_parmas = {
-    "fly_from": "DAM",
+    "fly_from": "BEY",
     "fly_to": None,
     "date_from": f"{now.strftime('%d/%m/%Y')}",
     "date_to": f"{six_months.strftime('%d/%m/%Y')}",
@@ -42,7 +42,7 @@ def find_the_cheapest_flight(cities_list):
         cities_cheapest_price_dict[city_name] = {
             "price": price,
             "flight_num": flight_num,
-            "flight_details": city_flights_list[flight_num]
+            # "flight_details": city_flights_list[flight_num],
         }
     return cities_cheapest_price_dict
         

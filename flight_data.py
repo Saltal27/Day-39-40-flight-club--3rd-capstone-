@@ -16,7 +16,7 @@ def compare_prices(sheety_cities_list, flights_dict):
                 "flight_num": flights_dict[city_name]["flight_num"],
                 "from": flights_dict[city_name]["flight_details"]["local_departure"],
                 "to": flights_dict[city_name]["flight_details"]["local_arrival"],
-                # "flight_details": flights_dict[city_name]["flight_details"],
+                "flight_details": flights_dict[city_name]["flight_details"],
             }
     return best_deals_dict
 

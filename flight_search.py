@@ -42,7 +42,7 @@ def find_the_cheapest_flight(cities_list):
         cities_cheapest_price_dict[city_name] = {
             "price": price,
             "flight_num": flight_num,
-            # "flight_details": city_flights_list[flight_num],
+            "flight_details": city_flights_list[flight_num],
         }
     return cities_cheapest_price_dict
         

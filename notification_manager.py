@@ -22,44 +22,44 @@ def send_cheap_flights_mail(best_deals_dict, users_list):
                 connection.starttls()
                 connection.login(user=MY_EMAIL, password=MY_PASSWORD)
 
-            if stop_overs_num == 0:
-                connection.sendmail(
-                    from_addr=MY_EMAIL,
-                    to_addrs=user_email,
-                    msg=f"Subject: LOW PRICE ALERT!\n\n"
-                        f"Only ${price} to fly from Beirut directly to {destination},"
-                        f"from: {fr}, to: {to}\n"
-                        f"https://www.google.com/flights?hl=en#flt="
-                        f"{origin_airport_iata}.{destination_airport_iata}."
-                        f"{fr}*{destination_airport_iata}.{origin_airport_iata}.{to}"
-                )
-                # print(f"Subject: LOW PRICE ALERT!\n\n"
-                #       f"Only ${price} to fly from Beirut directly to {destination},"
-                #       f"from: {fr}, to: {to}\n"
-                #       f"https://www.google.com/flights?hl=en#flt="
-                #       f"{origin_airport_iata}.{destination_airport_iata}."
-                #       f"{fr}*{destination_airport_iata}.{origin_airport_iata}.{to}"
-                #       )
-            else:
-                connection.sendmail(
-                    from_addr=MY_EMAIL,
-                    to_addrs=user_email,
-                    msg=f"Subject: LOW PRICE ALERT!\n\n"
-                        f"Only ${price} to fly from Beirut to {destination},"
-                        f"from: {fr}, to: {to}\n"
-                        f"Flight has {stop_overs_num} stop over, via {stop_over_city} City.\n"
-                        f"https://www.google.com/flights?hl=en#flt="
-                        f"{origin_airport_iata}.{destination_airport_iata}."
-                        f"{fr}*{destination_airport_iata}.{origin_airport_iata}.{to}"
-                )
-                # print(f"Subject: LOW PRICE ALERT!\n\n"
-                #       f"Only ${price} to fly from Beirut to {destination},"
-                #       f"from: {fr}, to: {to}\n"
-                #       f"Flight has {stop_overs_num} stop over, via {stop_over_city} City.\n"
-                #       f"https://www.google.com/flights?hl=en#flt="
-                #       f"{origin_airport_iata}.{destination_airport_iata}."
-                #       f"{fr}*{destination_airport_iata}.{origin_airport_iata}.{to}"
-                #       )
+                if stop_overs_num == 0:
+                    connection.sendmail(
+                        from_addr=MY_EMAIL,
+                        to_addrs=user_email,
+                        msg=f"Subject: LOW PRICE ALERT!\n\n"
+                            f"Only ${price} to fly from Beirut directly to {destination},"
+                            f"from: {fr}, to: {to}\n"
+                            f"https://www.google.com/flights?hl=en#flt="
+                            f"{origin_airport_iata}.{destination_airport_iata}."
+                            f"{fr}*{destination_airport_iata}.{origin_airport_iata}.{to}"
+                    )
+                    # print(f"Subject: LOW PRICE ALERT!\n\n"
+                    #       f"Only ${price} to fly from Beirut directly to {destination},"
+                    #       f"from: {fr}, to: {to}\n"
+                    #       f"https://www.google.com/flights?hl=en#flt="
+                    #       f"{origin_airport_iata}.{destination_airport_iata}."
+                    #       f"{fr}*{destination_airport_iata}.{origin_airport_iata}.{to}"
+                    #       )
+                else:
+                    connection.sendmail(
+                        from_addr=MY_EMAIL,
+                        to_addrs=user_email,
+                        msg=f"Subject: LOW PRICE ALERT!\n\n"
+                            f"Only ${price} to fly from Beirut to {destination},"
+                            f"from: {fr}, to: {to}\n"
+                            f"Flight has {stop_overs_num} stop over, via {stop_over_city} City.\n"
+                            f"https://www.google.com/flights?hl=en#flt="
+                            f"{origin_airport_iata}.{destination_airport_iata}."
+                            f"{fr}*{destination_airport_iata}.{origin_airport_iata}.{to}"
+                    )
+                    # print(f"Subject: LOW PRICE ALERT!\n\n"
+                    #       f"Only ${price} to fly from Beirut to {destination},"
+                    #       f"from: {fr}, to: {to}\n"
+                    #       f"Flight has {stop_overs_num} stop over, via {stop_over_city} City.\n"
+                    #       f"https://www.google.com/flights?hl=en#flt="
+                    #       f"{origin_airport_iata}.{destination_airport_iata}."
+                    #       f"{fr}*{destination_airport_iata}.{origin_airport_iata}.{to}"
+                    #       )
 
 
 class NotificationManager:

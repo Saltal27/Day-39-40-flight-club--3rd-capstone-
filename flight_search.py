@@ -15,6 +15,7 @@ tequila_search_parmas = {
     "fly_to": None,
     "date_from": f"{now.strftime('%d/%m/%Y')}",
     "date_to": f"{six_months.strftime('%d/%m/%Y')}",
+    "max_stopovers": 1,
 }
 
 
@@ -34,24 +35,37 @@ def find_the_cheapest_flight(cities_list):
         # getting all the flights for the mentioned city
         city_flights_list = tequila_search_response.json()["data"]
 
-        # finding the cheapest flight
-        cheapest_flight_price = city_flights_list[0]["price"]
-        cheapest_flight_num = 0
-        for flight in city_flights_list:
-            if flight["price"] < cheapest_flight_price:
-                cheapest_flight_price = flight["price"]
-                cheapest_flight_num = city_flights_list.index(flight)
+        try:
+            # finding the cheapest flight
+            cheapest_flight_price = city_flights_list[0]["price"]
 
-        # adding the cheapest flight to the dictionary
-        city_name = tequila_search_response.json()["data"][0]["cityTo"]
-        price = cheapest_flight_price
-        flight_num = cheapest_flight_num
+        except IndexError:
+            # there is no flight that matches the specified parmas
+            # (there is no [0] in city_flights_list)
+            pass
 
-        cities_cheapest_flight_dict[city_name] = {
-            "price": price,
-            "flight_num": flight_num,
-            "flight_details": city_flights_list[flight_num],
-        }
+        else:
+            cheapest_flight_num = 0
+            for flight in city_flights_list:
+                if flight["price"] < cheapest_flight_price:
+                    cheapest_flight_price = flight["price"]
+                    cheapest_flight_num = city_flights_list.index(flight)
+
+            # adding the cheapest flight to the dictionary
+            city_name = tequila_search_response.json()["data"][0]["cityTo"]
+            price = cheapest_flight_price
+            flight_num = cheapest_flight_num
+            flight_details = city_flights_list[flight_num]
+            stop_overs_num = len(flight_details["route"]) - 1
+            stop_over_city = flight_details["route"][0]["cityTo"]
+
+            cities_cheapest_flight_dict[city_name] = {
+                "price": price,
+                "flight_num": flight_num,
+                "stop_overs_num": stop_overs_num,
+                "stop_overs_city": stop_over_city,
+                "flight_details": flight_details,
+            }
     return cities_cheapest_flight_dict
         
 

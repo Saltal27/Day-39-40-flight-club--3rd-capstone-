@@ -4,7 +4,8 @@ TEQUILA_LOCATIONS_API_ENDPOINT = "https://api.tequila.kiwi.com/locations/query"
 TEQUILA_LOCATIONS_HEADERS = {
     "apikey": "2PRdq-QcpJSJNN-uffDK-SzkxXdQJRup",
 }
-GET_SHEETY_URL = "https://api.sheety.co/6f99efa404162352318a74763b1e629c/flightDeals/prices"
+GET_SHEETY_PRICES_URL = "https://api.sheety.co/6c032614643505580fd6287f06c112a2/flightDeals/prices"
+GET_SHEETY_USERS_URL = "https://api.sheety.co/6c032614643505580fd6287f06c112a2/flightDeals/users"
 
 tequila_locations_parmas = {
     "term": None,
@@ -16,9 +17,10 @@ def fill_iata_codes():
     """This function checks your Google Sheet 'FLIGHT DEALS', and fills the empty 'IATA Code' cells with data
     retrieved from the tequila api"""
 
-    # getting sheety data
-    get_sheety_response = requests.get(url=GET_SHEETY_URL)
-    sheety_data_list = get_sheety_response.json()["prices"]
+    # getting sheety prices data
+    get_sheety_prices_response = requests.get(url=GET_SHEETY_PRICES_URL)
+    # print(get_sheety_prices_response.text)
+    sheety_data_list = get_sheety_prices_response.json()["prices"]
 
     for city_num in range(len(sheety_data_list)):
         # acquiring each city name
@@ -42,7 +44,7 @@ def fill_iata_codes():
                     "iataCode": city_code,
                 }
             }
-            post_sheety_response = requests.put(url=edit_sheety_url, json=edit_sheety_body)
+            edit_sheety_response = requests.put(url=edit_sheety_url, json=edit_sheety_body)
 
 
 class DataManager:
@@ -50,6 +52,15 @@ class DataManager:
     retrieved from the tequila api"""
     def __init__(self):
         fill_iata_codes()
-        get_sheety_response = requests.get(url=GET_SHEETY_URL)
+        get_sheety_response = requests.get(url=GET_SHEETY_PRICES_URL)
         self.sheety_data = get_sheety_response.json()
         self.sheety_cities_list = self.sheety_data["prices"]
+        self.customers_list = []
+        self.get_customers_data()
+
+    def get_customers_data(self):
+        # getting sheety users data
+        get_sheety_users_response = requests.get(url=GET_SHEETY_USERS_URL)
+        # print(get_sheety_users_response.text)
+        sheety_users_list = get_sheety_users_response.json()["users"]
+        self.customers_list = sheety_users_list

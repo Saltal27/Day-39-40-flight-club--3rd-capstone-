@@ -13,8 +13,8 @@ flight_search = FlightSearch(data_manager.sheety_cities_list)
 
 # -------------------- COMPARING THE CHEAPEST FLIGHT WITH THE LOWEST PRICE ----------------------- #
 flight_data = FlightData(data_manager.sheety_cities_list, flight_search.cities_cheapest_flight_dict)
-print(flight_data.there_is_good_deals)
-print(data_manager.customers_list)
+# print(flight_data.there_is_good_deals)
+# print(data_manager.customers_list)
 
 # ---------------------------- SENDING ALERT EMAILS ------------------------------- #
 notification_manager = NotificationManager(flight_data.there_is_good_deals,
